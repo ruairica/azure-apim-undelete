@@ -1,15 +1,14 @@
-# node-ts-template
+### Undelete soft deleted azure api management services
 
-A template project for developing node.js (this project was last tested with v20.12.0) projects with Typescript. Configured with ESLint and Prettier for linting and formatting. Example Typescript files can be found in the `/src` directory.
+##### How to check for soft deleted apim's:
 
-## Getting started
+-   az login
+-   set your default az subscription
+-   `$subscriptionId=$(az account show --query id --output tsv)`
+-   `az rest --method GET --header "Accept=application/json" --uri "https://management.azure.com/subscriptions/${subscriptionId}/providers/Microsoft.ApiManagement/deletedservices?api-version=2021-08-01"`
 
--   Open the project in VS Code, you should be prompted to install the recommended extensions (Prettier and ESLint). If you this doesn't appear open the command pallet `ctrl + shift + p` and type `Show Recommended Extensions` to install the extensions. It's recommended to also change your VS Code settings to configure Prettier to format file on save.
--   Run `npm install` in in the terminal to install dependencies
+##### Recover the soft deleted apim:
 
-### To run the script:
--   Run `npx tsx ./src/main.ts`
-
-OR
--   Run `npm run build` in the terminal to build the project with the Typescript compiler. The javascript files will be created in the `/dist` folder.
--   `main.js` in the `/dist` folder is the entry point of the program. It can be run with `node main.js`
+-   `npm install`
+-   fill in the variables in main.ts, lines 5-8
+-   npx tsx ./src/main.ts (it can take a while to recover/activate the service)

@@ -1,6 +1,28 @@
-import assert from 'assert'; // sample import from node modules
-import { hey } from './helper.js'; // sample import for local files since w're using NodeNext, include .js extension
+import { ApiManagementClient } from '@azure/arm-apimanagement';
+import { DefaultAzureCredential } from '@azure/identity';
 
-assert(true, 'does not print');
-console.log('hello, world');
-console.log(hey);
+async function apiManagementUndelete() {
+    const subscriptionId = '';
+    const resourceGroupName = '';
+    const serviceName = '';
+    const location = 'northeurope';
+
+    // just ensure restore is true, the other parameters are ignored apart from location
+    const parameters = {
+        location: location,
+        publisherEmail: 'foo@contoso.com',
+        publisherName: 'foo',
+        restore: true,
+        sku: { name: 'Developer', capacity: 1 },
+    };
+
+    const client = new ApiManagementClient(new DefaultAzureCredential(), subscriptionId);
+    const result = await client.apiManagementService.beginCreateOrUpdateAndWait(
+        resourceGroupName,
+        serviceName,
+        parameters
+    );
+    console.log(result);
+}
+
+await apiManagementUndelete();
